@@ -5,7 +5,7 @@ export default function AnimatedHeader() {
     const { waapi, onScroll } = anime;
 
     waapi.animate(".square", {
-      rotateX: "6turn",
+      scale: [6, 2, .005],
       ease: "inOut(2)",
       autoplay: onScroll({
         container: "body",
