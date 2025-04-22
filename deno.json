@@ -28,12 +28,15 @@
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
+    "resend": "npm:resend@4.3.0",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
+    "tailwind-merge": "npm:tailwind-merge@3.2.0",
+    "clsx": "npm:clsx@2.1.1",
     "$std/": "https://deno.land/std@0.216.0/"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
   },
-  "nodeModulesDir": true
+  "nodeModulesDir": "auto"
 }

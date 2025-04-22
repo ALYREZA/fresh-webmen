@@ -1,0 +1,9 @@
+import AnimatedHeader from "../../islands/animatedHeader.tsx";
+
+export function WebmenTitle({lang}: { lang: string}) {
+  return (
+    <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
+      <AnimatedHeader lang={lang} />
+    </div>
+  );
+}
