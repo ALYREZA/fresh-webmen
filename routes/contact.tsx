@@ -3,16 +3,19 @@ import { Resend } from "resend"; // Import Resend
 
 // Define the state shape expected from middleware
 interface ContactState {
+  lang: string;
   t: (key: string) => string;
 }
 
 // Add Handlers for form processing
 export const handler: Handlers<undefined, ContactState> = {
-  async POST(req, ctx) {
+  async POST(req, _ctx) {
     const form = await req.formData();
     const name = form.get("name")?.toString();
     const email = form.get("email")?.toString();
     const message = form.get("message")?.toString();
+    const lang = form.get("lang")?.toString() || 'en';
+
 
     // Basic validation
     if (!name || !email || !message) {
@@ -70,7 +73,7 @@ export const handler: Handlers<undefined, ContactState> = {
     const headers = new Headers();
     // Consider redirecting to a dedicated thank-you page for better UX
     // headers.set("location", "/thank-you");
-    headers.set("location", "/contact?submitted=true"); // Or add a query param to show success
+    headers.set("location", `/contact?lang=${lang}&submitted=true`); // Or add a query param to show success
     return new Response(null, {
       status: 303, // See Other status code for POST-redirect-GET pattern
       headers,
@@ -85,7 +88,7 @@ export const handler: Handlers<undefined, ContactState> = {
 
 // Update component signature
 export default function ContactPage({ state, url }: PageProps<undefined, ContactState>) {
-  const { t } = state; // Get t from state
+  const { t, lang } = state; // Get t from state
   const submitted = url.searchParams.get("submitted") === "true"; // Check for submission status
 
   return (
@@ -123,6 +126,7 @@ export default function ContactPage({ state, url }: PageProps<undefined, Contact
                   <label for="name" class="block text-sm font-medium text-text-neutral-dark mb-1">{t('formNameLabel')}</label>
                   {/* Use semantic focus ring */}
                   <input id="name" name="name" type="text" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-ring-focus" />
+                  <input type='hidden' name='lang' value={lang} />
                 </div>
                 <div>
                   {/* Use semantic text color */}

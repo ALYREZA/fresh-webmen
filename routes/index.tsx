@@ -15,6 +15,18 @@ export default function Home({ state }: PageProps<undefined, AppState>) {
       {/* Hero Section - Assuming WebmenTitle handles its own text or doesn't need translation */}
       <section id="hero" class="px-4 py-8 mx-auto bg-primary-300 min-h-screen flex items-center justify-center">
         <WebmenTitle lang={lang} />
+      <video
+        class="absolute top-0 left-0 w-full h-full object-cover z-0"
+        autoPlay
+        muted
+        loop={false}
+        playsInline
+        poster="/video/poster.jpg"
+      >
+        <source src="/video/bg.mp4" type="video/mp4" />
+        <source src="/video/bg.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
       </section>
 
     </div>

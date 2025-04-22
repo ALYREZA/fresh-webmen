@@ -1,56 +1,48 @@
-import { type PageProps } from "$fresh/server.ts";
+import { PageProps } from "$fresh/server.ts";
 import { Head } from "$fresh/runtime.ts";
-import { cn } from "../util/cn.ts";
+import { Navigation } from "../islands/Navigation.tsx"; // Import the new component
+import Footer from "../components/Footer.tsx"; // Assuming you have or will create a Footer component
 
 // Define the state shape expected from middleware
 interface AppState {
   lang: string;
-  t: (key: string, params?: Record<string, string | number>) => string;
+  t: (key: string) => string;
 }
 
 export default function App({ Component, state }: PageProps<undefined, AppState>) {
-  const { lang, t } = state; // Get lang and t from state
-  const isRTL = lang === 'fa'; // Check if language is Persian
+  const { lang, t } = state; // Destructure lang and t from state
 
   return (
-    <html lang={lang} dir={isRTL ? 'rtl' : 'ltr'}>
+    // Add lang and dir attributes to html tag
+    <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'}>
       <Head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {/* Use translation function for title and description */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+                {/* Use translation function for title and description */}
         <title>{t('siteTitle')}</title>
         <meta name="description" content={t('siteDescription')} />
         <link rel="stylesheet" href="/styles.css" />
-        {/* Add specific styles for RTL if needed */}
+        {/* Add favicon links */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.webmanifest" />
+        {/* Include anime.js library */}
+        <script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.min.js"></script>
       </Head>
-      {/* Conditionally add 'font-farsi' class to the body */}
-      <body class={cn(isRTL && 'font-farsi')} data-theme="colorful">
-        <header class="fixed top-0 left-0 right-0 bg-white bg-opacity-90 shadow-md z-50">
-          <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href={`/?lang=${lang}`} class="text-2xl font-bold text-green-500">Webmen</a>
-            {/* Update nav links to use translations and include lang param */}
-            <ul class="hidden md:flex gap-x-8">
-              <li><a href={`/?lang=${lang}`} class="hover:text-green-500 transition-colors">{t('navHome')}</a></li>
-              <li><a href={`/about?lang=${lang}`} class="hover:text-green-500 transition-colors">{t('navAbout')}</a></li>
-              <li><a href={`/services?lang=${lang}`} class="hover:text-green-500 transition-colors">{t('navServices')}</a></li>
-              <li><a href={`/portfolio?lang=${lang}`} class="hover:text-green-500 transition-colors">{t('navPortfolio')}</a></li>
-              <li><a href={`/team?lang=${lang}`} class="hover:text-green-500 transition-colors">{t('navTeam')}</a></li>
-              <li><a href={`/contact?lang=${lang}`} class="hover:text-green-500 transition-colors">{t('navContact')}</a></li>
-            </ul>
-            {/* TODO: Implement mobile menu & Language switcher */}
-            <button class="md:hidden">Menu</button>
-          </nav>
+      {/* Apply base text/bg colors and font based on lang */}
+      <body class={`bg-background text-foreground ${lang === 'fa' ? 'font-farsi' : ''}`}>
+        {/* Use semantic background for header */}
+        <header class="fixed top-0 left-0 right-0 bg-background bg-opacity-90 shadow-md z-50 backdrop-blur-sm">
+          {/* Use the Navigation component, passing lang and t */}
+          <Navigation lang={lang} t={t} />
         </header>
-        <main class="pt-16">
+        {/* Add padding-top to main to account for fixed header height */}
+        <main class="pt-20"> {/* Adjust pt value based on your header's actual height */}
           <Component />
         </main>
-        <footer class="py-8 bg-gray-800 text-white text-center">
-          <div class="container mx-auto px-4">
-            {/* Use translation function for footer */}
-            <p>{t('footerRights', { year: new Date().getFullYear() })}</p>
-          </div>
-        </footer>
-        {/* Script moved to island where needed */}
+        {/* Assuming you have a Footer component */}
+        <Footer lang={lang} t={t} />
       </body>
     </html>
   );

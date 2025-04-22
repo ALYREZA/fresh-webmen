@@ -11,6 +11,7 @@ import * as $index from "./routes/index.tsx";
 import * as $portfolio from "./routes/portfolio.tsx";
 import * as $services from "./routes/services.tsx";
 import * as $team from "./routes/team.tsx";
+import * as $Navigation from "./islands/Navigation.tsx";
 import * as $animatedHeader from "./islands/animatedHeader.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
@@ -27,6 +28,7 @@ const manifest = {
     "./routes/team.tsx": $team,
   },
   islands: {
+    "./islands/Navigation.tsx": $Navigation,
     "./islands/animatedHeader.tsx": $animatedHeader,
   },
   baseUrl: import.meta.url,
