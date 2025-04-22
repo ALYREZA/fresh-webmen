@@ -48,6 +48,12 @@ const teamMembers: TeamMember[] = [
     imageUrl: "/images/teams/siavash.webp",
     linkedinUrl: "https://linkedin.com/in/siavash-beheshti/",
   },
+  {
+    nameKey: "teamMemberNameAzim", // Use nameKey
+    titleKey: JobTitleKeys.FRONTEND_DEV,
+    imageUrl: "/images/teams/azim.webp",
+    linkedinUrl: "https://www.linkedin.com/in/azimebrahimi72/",
+  },
   // Add more team members here using nameKey
 ];
 
