@@ -49,6 +49,7 @@
   "contactDescription": "Lean on our expert experience to set your project up for success. Tell us about your goals for working with us so our team can ensure it’s a good fit for your project needs.",
   "formNameLabel": "Name",
   "formEmailLabel": "Email",
+  "formMobileLabel": "Mobile",
   "formMessageLabel": "Message",
   "formSubmitButton": "Send Message",
   "formSuccessMessage": "Thank you for your message! We'll get back to you soon.",
