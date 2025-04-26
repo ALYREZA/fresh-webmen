@@ -1,4 +1,4 @@
-import { Button } from "../components/Button.tsx";
+import { Button } from "./Button.tsx";
 
 export default function AnimatedHeader({lang}: {lang: string}) {
 
