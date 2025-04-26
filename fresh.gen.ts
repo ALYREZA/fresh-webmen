@@ -11,8 +11,8 @@ import * as $index from "./routes/index.tsx";
 import * as $portfolio from "./routes/portfolio.tsx";
 import * as $services from "./routes/services.tsx";
 import * as $team from "./routes/team.tsx";
-import * as $Navigation from "./islands/Navigation.tsx";
-import * as $animatedHeader from "./islands/animatedHeader.tsx";
+import * as $AnimatedHeader from "./islands/AnimatedHeader.tsx";
+import * as $my_navigation from "./islands/my-navigation.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -28,8 +28,8 @@ const manifest = {
     "./routes/team.tsx": $team,
   },
   islands: {
-    "./islands/Navigation.tsx": $Navigation,
-    "./islands/animatedHeader.tsx": $animatedHeader,
+    "./islands/AnimatedHeader.tsx": $AnimatedHeader,
+    "./islands/my-navigation.tsx": $my_navigation,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

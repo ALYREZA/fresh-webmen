@@ -1,58 +1,6 @@
-import { useEffect } from "preact/hooks";
 import { Button } from "../components/Button.tsx";
 
 export default function AnimatedHeader({lang}: {lang: string}) {
-
-
-  useEffect(() => {
-    if (!anime) return;
-    const {animate, waapi, onScroll} = anime;
-
-    // Animate the main title
-    animate({
-      targets: '.title-text',
-      opacity: [0, 1],
-      translateY: [50, 0],
-      easing: 'easeOutExpo',
-      duration: 1200,
-      delay: (_el: any, i: number) => 300 + 100 * i
-    });
-
-    // Animate the subtitle
-    animate({
-      targets: '.subtitle-text',
-      opacity: [0, 1],
-      translateY: [20, 0],
-      easing: 'easeOutExpo',
-      duration: 1000,
-      delay: 800
-    });
-
-    // Animate the CTA button
-    animate({
-      targets: '.cta-button',
-      opacity: [0, 1],
-      translateY: [20, 0],
-      easing: 'easeOutExpo',
-      duration: 800,
-      delay: 1200
-    });
-
-    // Scroll animation
-    if (waapi && onScroll) {
-      waapi.animate(".square", {
-        scale: [1, 0.8],
-        opacity: [1, 0.8],
-        ease: "inOut(2)",
-        autoplay: onScroll({
-          container: "body",
-          sync: 0.25,
-        }),
-      });
-    }
-
-    
-  }, []);
 
   return (
     <div class="text-center text-white">

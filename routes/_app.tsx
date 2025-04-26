@@ -1,7 +1,8 @@
 import { PageProps } from "$fresh/server.ts";
 import { Head } from "$fresh/runtime.ts";
-import { Navigation } from "../islands/Navigation.tsx"; // Import the new component
+import Navigation from "../islands/my-navigation.tsx"; // Import the new component
 import Footer from "../components/Footer.tsx"; // Assuming you have or will create a Footer component
+import MenuItems from "../components/MenuItems.tsx";
 
 // Define the state shape expected from middleware
 interface AppState {
@@ -11,7 +12,7 @@ interface AppState {
 
 export default function App({ Component, state }: PageProps<undefined, AppState>) {
   const { lang, t } = state; // Destructure lang and t from state
-
+  
   return (
     // Add lang and dir attributes to html tag
     <html lang={lang} dir={lang === 'fa' ? 'rtl' : 'ltr'}>
@@ -35,7 +36,9 @@ export default function App({ Component, state }: PageProps<undefined, AppState>
         {/* Use semantic background for header */}
         <header class="fixed top-0 left-0 right-0 bg-background bg-opacity-90 shadow-md z-50 backdrop-blur-sm">
           {/* Use the Navigation component, passing lang and t */}
-          <Navigation lang={lang} t={t} />
+          <Navigation lang={lang}>
+            <MenuItems lang={lang} t={t} />
+          </Navigation>
         </header>
         {/* Add padding-top to main to account for fixed header height */}
         <main class="pt-20"> {/* Adjust pt value based on your header's actual height */}

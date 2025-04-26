@@ -4,14 +4,16 @@ import { type PageProps } from "$fresh/server.ts";
 // Define the state shape expected from middleware
 interface AppState {
   lang: string;
+  t: (key: string) => string;
 }
 
 // Update component signature to accept props and destructure state
 export default function Home({ state }: PageProps<undefined, AppState>) {
-  const { lang } = state; // Get lang and t from state
+  const { lang, t } = state; // Get lang and t from state
 
   return (
     <div class="w-full">
+      {/* Use semantic background for header */}
       {/* Hero Section - Assuming WebmenTitle handles its own text or doesn't need translation */}
       <section id="hero" class="px-4 py-8 mx-auto bg-primary-300 min-h-screen flex items-center justify-center">
         <WebmenTitle lang={lang} />

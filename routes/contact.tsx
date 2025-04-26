@@ -14,17 +14,19 @@ export const handler: Handlers<undefined, ContactState> = {
     const name = form.get("name")?.toString();
     const email = form.get("email")?.toString();
     const message = form.get("message")?.toString();
+    const mobile = form.get("mobile")?.toString(); // <-- Add mobile field retrieval
     const lang = form.get("lang")?.toString() || 'en';
 
 
     // Basic validation
-    if (!name || !email || !message) {
-      console.error("Form submission incomplete:", { name, email, message });
+    // <-- Add mobile to validation
+    if (!name || !email || !message || !mobile) {
+      console.error("Form submission incomplete:", { name, email, message, mobile });
       // Consider rendering the form again with an error message instead of just text
       return new Response("Form data incomplete", { status: 400 });
     }
 
-    console.log("Received contact form submission:", { name, email }); // Don't log full message in production usually
+    console.log("Received contact form submission:", { name, email, mobile }); // <-- Add mobile to log
 
     // --- Email Sending Logic ---
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
@@ -35,8 +37,8 @@ export const handler: Handlers<undefined, ContactState> = {
         // In a real app, you might want to prevent the redirect or show an error
     } else {
         const resend = new Resend(resendApiKey);
-        const yourReceivingEmail = "your-email@example.com"; // <-- REPLACE with your email address
-        const sendingDomainEmail = "onboarding@resend.dev"; // <-- REPLACE with your verified Resend domain or use default
+        const yourReceivingEmail = "webmen.developer@gmail.com"; // <-- REPLACE with your email address
+        const sendingDomainEmail = "no-reply@mail.webmen.ir"; // <-- REPLACE with your verified Resend domain or use default
 
         try {
           const { data, error } = await resend.emails.send({
@@ -48,6 +50,7 @@ export const handler: Handlers<undefined, ContactState> = {
               <ul>
                 <li><strong>Name:</strong> ${name}</li>
                 <li><strong>Email:</strong> ${email}</li>
+                <li><strong>Mobile:</strong> ${mobile}</li> {/* <-- Add mobile to email */}
               </ul>
               <p><strong>Message:</strong></p>
               <p>${message.replace(/\n/g, '<br>')}</p>
@@ -134,6 +137,12 @@ export default function ContactPage({ state, url }: PageProps<undefined, Contact
                   {/* Use semantic focus ring */}
                   <input id="email" name="email" type="email" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-ring-focus" />
                 </div>
+                {/* Add Mobile Field */}
+                <div>
+                  <label for="mobile" class="block text-sm font-medium text-text-neutral-dark mb-1">{t('formMobileLabel')}</label> {/* Assuming 'formMobileLabel' exists in your translations */}
+                  <input id="mobile" name="mobile" type="tel" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-ring-focus" />
+                </div>
+                {/* End Add Mobile Field */}
                 <div>
                   {/* Use semantic text color */}
                   <label for="message" class="block text-sm font-medium text-text-neutral-dark mb-1">{t('formMessageLabel')}</label>

@@ -1,4 +1,4 @@
-import AnimatedHeader from "../../islands/animatedHeader.tsx";
+import AnimatedHeader from "../../islands/AnimatedHeader.tsx";
 
 export function WebmenTitle({lang}: { lang: string}) {
   return (
